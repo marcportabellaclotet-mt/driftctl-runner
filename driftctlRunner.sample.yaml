@@ -1,0 +1,34 @@
+staging:
+  description: AWS common resources used in my aws staging account
+  group: group1
+  provider: aws
+  aws:
+    awsAccountId: "xxx"
+    awsAccountName: my-aws-account
+    tfStateMethod: assumeRole #direct|awsprofile|assumerole
+    infraScanMethod: assumeRole #direct|assumerole
+    tfStateRole: arn:aws:iam::xxxxx:role/xxxx-terraform-state
+    infraScanRole: arn:aws:iam::xxxxx:role/xxxx-terraform
+  tfStateList:
+  - tfstate+s3://mytfstatebucket/**/*staging-dev/terraform.tfstate
+  - tfstate+s3://mytfstatebucket/**/*staging/terraform.tfstate
+  - tfstate+s3://mytfstatebucket/**/dev/terraform.tfstate
+  - tfstate+s3://mytfstatebucket/**/*qa/terraform.tfstate
+  - tfstate+s3://mytfstatebucket/**/*sandbox/terraform.tfstate
+  scanFilter: "Type!='aws_ecr_repository'&&Type!='aws_route53_record'&&Type!='aws_security_group_rule'&&Type!='aws_ebs_volume'"
+  datadogIntegration: true
+dev:
+  description: AWS common resources used in my aws dev account
+  group: group1
+  provider: aws
+  aws:
+    awsAccountId: "xxx"
+    awsAccountName: my-aws-account
+    tfStateMethod: assumeRole #direct|awsprofile|assumerole
+    infraScanMethod: assumeRole #direct|assumerole
+    tfStateRole: arn:aws:iam::xxxxx:role/xxxx-terraform-state
+    infraScanRole: arn:aws:iam::xxxxx:role/xxxx-terraform
+  tfStateList:
+  - tfstate+s3://mytfstatebucket/**/*dev/terraform.tfstate
+  scanFilter: "Type!='aws_ecr_repository'&&Type!='aws_route53_record'&&Type!='aws_security_group_rule'&&Type!='aws_ebs_volume'"
+  datadogIntegration: false
